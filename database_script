@@ -1,0 +1,39 @@
+
+CREATE DATABASE get_in_touch;
+
+USE get_in_touch;
+
+CREATE TABLE user (
+   user_id           VARCHAR(255) 	            NOT NULL,
+   email             VARCHAR(255) 	            NOT NULL     UNIQUE,
+   password          VARCHAR(255) 	            NOT NULL,
+   first_name        VARCHAR(255) 	            NOT NULL,
+   last_name         VARCHAR(255) 	            NOT NULL,
+   date_of_birth     DATE			               NOT NULL,
+   gender            ENUM('male', 'female')     NOT NULL,
+   phone_number      VARCHAR(255),
+   bio               VARCHAR(500)               NOT NULL,
+
+
+   CONSTRAINT user_pk PRIMARY KEY (user_id)
+);
+
+CREATE TABLE location (
+   location_id    	INT AUTO_INCREMENT NOT NULL,
+   latitude       	DECIMAL(10, 8)   NOT NULL,
+   longitude      	VARCHAR(255)     NOT NULL,
+   user_reference 	VARCHAR(255)	 NOT NULL,
+   CONSTRAINT location_pk PRIMARY KEY (location_id),
+   CONSTRAINT location_user_fk FOREIGN KEY (user_reference) REFERENCES user (user_id) ON DELETE CASCADE
+);
+
+INSERT INTO user (user_id,email,password,first_name, last_name,date_of_birth,gender,phone_number,bio) VALUES ("11111111-1","karen.barreto@test.com","123456789","Karen", "Barreto","1991-02-12", "female", "+56 9 9999 9999","Esta es mi biografia");
+INSERT INTO user (user_id,email,password,first_name, last_name,date_of_birth,gender,phone_number,bio) VALUES ("11111111-1","tomas.solis@test.com","123456789","Tomas", "Solis","1991-04-19", "male", "+56 9 9999 9999","Esta es mi biografia");
+INSERT INTO user (user_id,email,password,first_name, last_name,date_of_birth,gender,phone_number,bio) VALUES ("11111111-1","karelia.rasquin@test.com","123456789","Karelia", "Rasquin","1957-04-09", "female", "+56 9 9999 9999","Esta es mi biografia");
+INSERT INTO user (user_id,email,password,first_name, last_name,date_of_birth,gender,phone_number,bio) VALUES ("11111111-1","ali.suleiman@test.com","123456789","Ali", "Suleiman","1955-07-02", "male", "+56 9 9999 9999","Esta es mi biografia");
+
+INSERT INTO location (latitude, longitude,user_reference) VALUES (-33.454706, -70.577006,"25107212-4");
+INSERT INTO location (latitude, longitude,user_reference) VALUES (-33.405551 ,-70.573658,"26002370-5");
+INSERT INTO location (latitude, longitude,user_reference) VALUES (-33.506526, -70.727709,"17810261-3");
+INSERT INTO location (latitude, longitude,user_reference) VALUES (-33.437745,-70.650673,"11111111-1");
+
